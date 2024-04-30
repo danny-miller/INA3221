@@ -96,6 +96,7 @@ typedef enum {
 } ina3221_avg_mode_t;
 
 class INA3221 {
+   private:
     // Configuration register
     typedef struct {
         uint16_t mode_shunt_en : 1;
@@ -130,6 +131,7 @@ class INA3221 {
         uint16_t reserved : 1;
     } __attribute__((packed)) masken_reg_t;
 
+   protected:
     // Arduino's I2C library
     TwoWire *_i2c;
 
@@ -152,7 +154,7 @@ class INA3221 {
     void _write(ina3221_reg_t reg, uint16_t *val);
 
    public:
-    INA3221(ina3221_addr_t addr) : _i2c_addr(addr){};
+    INA3221(ina3221_addr_t addr) : {_i2c_addr = addr};
     // Initializes INA3221
     void begin(TwoWire *theWire = &Wire);
 
